@@ -3,8 +3,6 @@ import 'package:cryptoviewer/presentation/widgets/coin_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/** */
-
 class ListPage extends StatefulWidget {
   const ListPage({super.key});
 

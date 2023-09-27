@@ -4,8 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:cryptoviewer/core/util/values.dart' as values;
 import 'package:cryptoviewer/core/util/date_format.dart' as dateFormat;
 
-import 'dart:developer' as developer;
-
 class CoinsApiService {
   //await dotenv.load(fileName: ".env")
 
@@ -13,7 +11,7 @@ class CoinsApiService {
   String? baseURL;
   Dio dio = Dio();
   CoinsApiService() {
-    this.baseURL = values.baseURL; //"https://rest.coinapi.io/v1";
+    baseURL = values.baseURL; //"https://rest.coinapi.io/v1";
   }
 
   Future<Response> getAllCoins() async {

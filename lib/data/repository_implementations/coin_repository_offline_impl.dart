@@ -24,7 +24,7 @@ class CoinRepositoryOfflineImpl implements CoinRepository {
   @override
   Future<DataState<List<CoinModel>>> getAllCoinsData() async {
     try {
-      await Future.delayed(Duration(seconds: 3));
+      await Future.delayed(const Duration(seconds: 3));
       sleep(const Duration(seconds: 2)); //para simular un pequeño delay
       String jsonPath = "lib/core/sample_coins.json";
 
@@ -37,18 +37,17 @@ class CoinRepositoryOfflineImpl implements CoinRepository {
       //print(coinData);
       return DataSuccess(coinData);
     } catch (e) {
-      print(e);
       return DataFailed(DioError(
           requestOptions:
               RequestOptions(path: "offline_repository_implementation_error"),
-          error: "no se pudieron cargar los datos"));
+          error: "no se pudieron cargar los datos: $e"));
     }
   }
 
   @override
   Future<DataState<List<CoinHistoryModel>>> getCoinHistory(
       String assetId, HistoryMode historyMode) async {
-    await Future.delayed(Duration(seconds: 2)); //simulacion de delay
+    await Future.delayed(const Duration(seconds: 2)); //simulacion de delay
 
     try {
       String jsonPath = "lib/core/sample_history.json";
@@ -56,15 +55,12 @@ class CoinRepositoryOfflineImpl implements CoinRepository {
           (json.decode(await rootBundle.loadString(jsonPath)) as List);
       List<CoinHistoryModel> coinHistoryData =
           res.map((i) => CoinHistoryModel.fromJson(i, assetId)).toList();
-      print("history data");
-      print(coinHistoryData);
       return DataSuccess(coinHistoryData);
     } catch (e) {
-      print(e);
       return DataFailed(DioError(
           requestOptions:
               RequestOptions(path: "offline_repository_implementation_error"),
-          error: "no se pudieron cargar los datos"));
+          error: "Error no se pudieron cargar los datos: $e"));
     }
   }
 }

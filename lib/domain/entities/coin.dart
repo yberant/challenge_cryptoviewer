@@ -7,7 +7,7 @@ class CoinEntity extends Equatable {
   final String idIcon;
   final double priceUsd;
 
-  CoinEntity(
+  const CoinEntity(
       {required this.name,
       required this.assetId,
       required this.typeIsCrypto,

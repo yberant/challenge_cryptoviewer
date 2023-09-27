@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-//TODO: ACTUALIZAR PROPS
 class CoinHistoryEntity extends Equatable {
   final DateTime timeStart;
   final double rateOpen;
@@ -8,7 +7,7 @@ class CoinHistoryEntity extends Equatable {
   final double rateClose;
   final String assetId;
 
-  CoinHistoryEntity(
+  const CoinHistoryEntity(
       {required this.timeStart,
       required this.rateOpen,
       required this.rateHigh,
@@ -16,6 +15,6 @@ class CoinHistoryEntity extends Equatable {
       required this.assetId});
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [assetId];
+  List<Object?> get props =>
+      [timeStart, rateOpen, rateHigh, rateClose, assetId];
 }

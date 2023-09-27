@@ -20,17 +20,12 @@ class CoinRepositoryImpl implements CoinRepository {
 
   @override
   Future<DataState<List<CoinModel>>> getAllCoinsData() async {
-    print("getting coins");
-
     Response httpResponse = await _coinsApiService.getAllCoins();
 
-    //TODO: IMPLEMENTAR MANEJO DE ERRORES SI HAY TIEMPO
     if (httpResponse.statusCode == HttpStatus.ok) {
       List<CoinModel> coinData = (httpResponse.data as List)
           .map((cd) => CoinModel.fromJson(cd))
           .toList();
-
-      print("done ${coinData.length}");
 
       List<CoinModel> filteredCoinData = coinData
           .where((coin) => coin.typeIsCrypto)
