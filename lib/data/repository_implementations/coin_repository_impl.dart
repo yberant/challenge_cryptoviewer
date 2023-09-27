@@ -1,7 +1,9 @@
 //import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:cryptoviewer/core/util/data_state.dart';
+import 'package:cryptoviewer/core/util/enums.dart';
 import 'package:cryptoviewer/data/data_sources/remote/coins_api_service.dart';
 import 'package:cryptoviewer/data/models/coin.dart';
 import 'package:cryptoviewer/data/models/coin_history.dart';
@@ -18,6 +20,8 @@ class CoinRepositoryImpl implements CoinRepository {
 
   @override
   Future<DataState<List<CoinModel>>> getAllCoinsData() async {
+    print("getting coins");
+
     Response httpResponse = await _coinsApiService.getAllCoins();
 
     //TODO: IMPLEMENTAR MANEJO DE ERRORES SI HAY TIEMPO
@@ -25,7 +29,15 @@ class CoinRepositoryImpl implements CoinRepository {
       List<CoinModel> coinData = (httpResponse.data as List)
           .map((cd) => CoinModel.fromJson(cd))
           .toList();
-      return DataSuccess(coinData);
+
+      print("done ${coinData.length}");
+
+      List<CoinModel> filteredCoinData = coinData
+          .where((coin) => coin.typeIsCrypto)
+          .toList()
+          .getRange(0, min(1000, coinData.length - 1))
+          .toList();
+      return DataSuccess(filteredCoinData);
     } else {
       return DataFailed(DioError(
           error: httpResponse.statusMessage,
@@ -37,9 +49,9 @@ class CoinRepositoryImpl implements CoinRepository {
 
   @override
   Future<DataState<List<CoinHistoryModel>>> getCoinHistory(
-      String assetId, String periodId, int periodDays) async {
+      String assetId, HistoryMode historyMode) async {
     Response httpResponse =
-        await _coinsApiService.getCoinsHistory(assetId, periodId, periodDays);
+        await _coinsApiService.getCoinsHistory(assetId, historyMode);
     if (httpResponse.statusCode == HttpStatus.ok) {
       List<CoinHistoryModel> coinHistory = (httpResponse.data as List)
           .map((ch) => CoinHistoryModel.fromJson(ch, assetId))

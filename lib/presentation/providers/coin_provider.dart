@@ -1,4 +1,5 @@
 import 'package:cryptoviewer/core/util/data_state.dart';
+import 'package:cryptoviewer/core/util/enums.dart';
 //import 'package:cryptoviewer/data/models/coin.dart';
 import 'package:cryptoviewer/domain/entities/coin.dart';
 import 'package:cryptoviewer/domain/entities/coin_history.dart';
@@ -13,7 +14,11 @@ class CoinProvider extends ChangeNotifier {
   DioError? currentError = null;
   DataState<List<CoinEntity>>? coinListRes;
 
-  DataState<List<CoinHistoryEntity>>? coinHistoryRes;
+  String coinFilter = "";
+  List<CoinEntity> coinListFiltered = [];
+
+  DataState<List<CoinHistoryEntity>>? coinHistoryMonthRes;
+  DataState<List<CoinHistoryEntity>>? coinHistoryDayRes;
 
   //Future<DataState<List<CoinEntity>>>? coinList;
   bool loadingCoins = true;
@@ -22,12 +27,15 @@ class CoinProvider extends ChangeNotifier {
 
   CoinProvider({required this.coinRepository});
 
-  Future<void> getCoinListHistory(
-      String assetId, String periodId, int periodDays) async {
+  Future<void> getCoinListHistory(String assetId) async {
     loadingCoinHistory = true;
     notifyListeners();
-    coinHistoryRes =
-        await coinRepository.getCoinHistory(assetId, periodId, periodDays);
+    coinHistoryMonthRes =
+        await coinRepository.getCoinHistory(assetId, HistoryMode.month);
+
+    //print("coin history month: ${coinHistoryMonthRes?.data?.length}");
+    //coinHistoryDayRes =
+    //    await coinRepository.getCoinHistory(assetId, HistoryMode.day);
     loadingCoinHistory = false;
     notifyListeners();
   }

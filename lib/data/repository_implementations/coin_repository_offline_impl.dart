@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cryptoviewer/core/util/data_state.dart';
+import 'package:cryptoviewer/core/util/enums.dart';
 import 'package:cryptoviewer/data/models/coin.dart';
 import 'package:cryptoviewer/data/models/coin_history.dart';
 import 'package:cryptoviewer/domain/repository_interfaces/coin_repository.dart';
@@ -23,7 +24,8 @@ class CoinRepositoryOfflineImpl implements CoinRepository {
   @override
   Future<DataState<List<CoinModel>>> getAllCoinsData() async {
     try {
-      //sleep(const Duration(seconds: 2)); //para simular un pequeño delay
+      await Future.delayed(Duration(seconds: 3));
+      sleep(const Duration(seconds: 2)); //para simular un pequeño delay
       String jsonPath = "lib/core/sample_coins.json";
 
       List<dynamic> res =
@@ -45,14 +47,17 @@ class CoinRepositoryOfflineImpl implements CoinRepository {
 
   @override
   Future<DataState<List<CoinHistoryModel>>> getCoinHistory(
-      String assetId, String periodId, int periodDays) async {
-    sleep(const Duration(seconds: 5));
+      String assetId, HistoryMode historyMode) async {
+    await Future.delayed(Duration(seconds: 2)); //simulacion de delay
+
     try {
       String jsonPath = "lib/core/sample_history.json";
       List<dynamic> res =
           (json.decode(await rootBundle.loadString(jsonPath)) as List);
       List<CoinHistoryModel> coinHistoryData =
           res.map((i) => CoinHistoryModel.fromJson(i, assetId)).toList();
+      print("history data");
+      print(coinHistoryData);
       return DataSuccess(coinHistoryData);
     } catch (e) {
       print(e);

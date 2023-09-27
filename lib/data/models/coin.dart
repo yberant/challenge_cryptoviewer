@@ -12,7 +12,7 @@ class CoinModel extends CoinEntity {
     return CoinModel(
         name: map["name"],
         assetId: map["asset_id"],
-        typeIsCrypto: map["type_is_crypto"] == 0 ? true : false,
+        typeIsCrypto: map["type_is_crypto"] == 0 ? false : true,
         idIcon: map["id_icon"] ?? "none",
         priceUsd: map["asset_id"] == "USD" ? 1 : (map["price_usd"]) ?? -1);
   }

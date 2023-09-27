@@ -74,6 +74,10 @@ dev_dependencies:
 
   mockito: ^5.4.2
 
+  fl_chart: ^0.36.0
+
+  syncfusion_flutter_charts: 23.1.38
+
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -97,6 +101,7 @@ flutter:
     - .env
     - lib/core/sample_coins.json
     - lib/core/sample_history.json
+    
 
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

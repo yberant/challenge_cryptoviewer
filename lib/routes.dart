@@ -10,7 +10,9 @@ GoRouter goRoutes = GoRouter(routes: [
       builder: (context, state) =>
           LoadingPage(assetId: state.pathParameters["id"]!)),
   GoRoute(
-      path: "/coin_history/:id",
-      builder: (context, state) =>
-          ChartPage(assetId: state.pathParameters["id"]!))
+      path: "/coin_history/:id/:name",
+      builder: (context, state) => ChartPage(
+            assetId: state.pathParameters["id"]!,
+            name: state.pathParameters["name"]!,
+          ))
 ]);

@@ -1,3 +1,4 @@
+import 'package:cryptoviewer/core/util/enums.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:dio/dio.dart';
 import 'package:cryptoviewer/core/util/values.dart' as values;
@@ -31,10 +32,23 @@ class CoinsApiService {
   }
 
   Future<Response> getCoinsHistory(
-      String assetId, String periodId, int periodDays) async {
+      String assetId, HistoryMode historyMode) async {
     if (apiKey == null) {
       await dotenv.load(fileName: ".env");
       apiKey = dotenv.get("X_CoinAPI_key");
+    }
+
+    var periodDays;
+    var periodId;
+
+    if (historyMode == HistoryMode.day) {
+      periodDays = 1;
+      periodId = "1HRS";
+    } else if (historyMode == HistoryMode.month) {
+      periodDays = 30;
+      periodId = "1DAY";
+    } else {
+      throw Exception('invalid history mode');
     }
 
     final url = '${values.baseURL}/${values.coinHistoryPath(assetId)}';

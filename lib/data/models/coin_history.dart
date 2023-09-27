@@ -11,11 +11,12 @@ class CoinHistoryModel extends CoinHistoryEntity {
 
   factory CoinHistoryModel.fromJson(
       Map<String, dynamic> history, String assetId) {
+    print(history["time_period_start"]);
     return CoinHistoryModel(
         timeStart: DateTime.parse(history["time_period_start"]),
         rateOpen: history["rate_open"],
-        rateHigh: history["rate_open"],
-        rateClose: history["rate_open"],
+        rateHigh: history["rate_high"],
+        rateClose: history["rate_close"],
         assetId: assetId);
   }
 }

@@ -55,9 +55,12 @@ class _CoinSelectorState extends State<CoinSelector> {
                 ],
               )),
         ),
-        onTap: () {
+        onTap: () async {
           coinProvider.setLoadingCoinHistory(true);
-          GoRouter.of(context).push("/coin_history/${widget.coin.assetId}");
+
+          //coinProvider.getCoinListHistory(widget.coin.assetId, "1HRS", 30);
+          GoRouter.of(context)
+              .push("/coin_history/${widget.coin.assetId}/${widget.coin.name}");
           /* coinProvider.getCoinListHistory(widget.coin.assetId, "1HRS", 30);
           print("history:");
           print(coinProvider.coinHistoryRes?.data); */

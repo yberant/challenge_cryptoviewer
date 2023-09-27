@@ -1,4 +1,5 @@
 import 'package:cryptoviewer/core/util/data_state.dart';
+import 'package:cryptoviewer/core/util/enums.dart';
 import 'package:cryptoviewer/domain/repository_interfaces/coin_repository.dart';
 import 'package:cryptoviewer/domain/use_cases/get_coins_history.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -22,16 +23,15 @@ void main() {
   });
 
   test('should get coin history', () async {
-    when(mockCoinRepository!.getCoinHistory(testUtils.testAssetId,
-            testUtils.testPeriodId, testUtils.testPeriodDays))
+    when(mockCoinRepository!
+            .getCoinHistory(testUtils.testAssetId, HistoryMode.month))
         .thenAnswer((_) async => DataSuccess(testHistory));
 
-    final result = await usecase!(testUtils.testAssetId, testUtils.testPeriodId,
-        testUtils.testPeriodDays);
+    final result = await usecase!(testUtils.testAssetId, HistoryMode.month);
 
     expect(result.data, DataSuccess(testHistory).data);
-    verify(mockCoinRepository!.getCoinHistory(testUtils.testAssetId,
-        testUtils.testPeriodId, testUtils.testPeriodDays));
+    verify(mockCoinRepository!
+        .getCoinHistory(testUtils.testAssetId, HistoryMode.month));
     verifyNoMoreInteractions(mockCoinRepository);
   });
 }

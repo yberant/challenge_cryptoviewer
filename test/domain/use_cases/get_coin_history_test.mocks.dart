@@ -6,6 +6,7 @@
 import 'dart:async' as _i4;
 
 import 'package:cryptoviewer/core/util/data_state.dart' as _i2;
+import 'package:cryptoviewer/core/util/enums.dart' as _i7;
 import 'package:cryptoviewer/domain/entities/coin.dart' as _i5;
 import 'package:cryptoviewer/domain/entities/coin_history.dart' as _i6;
 import 'package:cryptoviewer/domain/repository_interfaces/coin_repository.dart'
@@ -65,16 +66,14 @@ class MockCoinRepository extends _i1.Mock implements _i3.CoinRepository {
   @override
   _i4.Future<_i2.DataState<List<_i6.CoinHistoryEntity>>> getCoinHistory(
     String? assetId,
-    String? periodId,
-    int? periodDays,
+    _i7.HistoryMode? historyMode,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getCoinHistory,
           [
             assetId,
-            periodId,
-            periodDays,
+            historyMode,
           ],
         ),
         returnValue:
@@ -85,8 +84,7 @@ class MockCoinRepository extends _i1.Mock implements _i3.CoinRepository {
             #getCoinHistory,
             [
               assetId,
-              periodId,
-              periodDays,
+              historyMode,
             ],
           ),
         )),
@@ -98,8 +96,7 @@ class MockCoinRepository extends _i1.Mock implements _i3.CoinRepository {
             #getCoinHistory,
             [
               assetId,
-              periodId,
-              periodDays,
+              historyMode,
             ],
           ),
         )),

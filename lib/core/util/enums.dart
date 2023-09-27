@@ -1,0 +1,1 @@
+enum HistoryMode { day, month }

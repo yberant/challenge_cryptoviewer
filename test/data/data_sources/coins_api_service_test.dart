@@ -1,4 +1,5 @@
 import 'package:cryptoviewer/core/util/data_state.dart';
+import 'package:cryptoviewer/core/util/enums.dart';
 import 'package:cryptoviewer/data/data_sources/remote/coins_api_service.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -35,10 +36,10 @@ void main() {
    verifica si el servicio hace correctamente la request para obtener la lista valores históricos de un mes (lapso de una hora) del asset BTC
    */
 
-  test('should query BTC asset history', () async {
+  test('should query BTC month asset history', () async {
     Response? result;
-    result = await coinsApiService!
-        .getCoinsHistory(assetId!, periodId!, periodDays!);
+    result =
+        await coinsApiService!.getCoinsHistory(assetId!, HistoryMode.month);
 
     expect(result.data.length, greaterThan(0));
     expect(result.statusCode, 200);

@@ -16,7 +16,7 @@ class _LoadingPageState extends State<LoadingPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => context
             .read<CoinProvider>()
-            .getCoinListHistory(widget.assetId, "1HRS", 30)
+            .getCoinListHistory(widget.assetId)
             .then((_) {
           print(context.read<CoinProvider>().loadingCoinHistory);
         }));
