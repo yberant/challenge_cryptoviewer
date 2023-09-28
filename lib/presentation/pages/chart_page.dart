@@ -1,18 +1,21 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:cryptoviewer/presentation/pages/list_page.dart';
 import 'package:cryptoviewer/presentation/providers/coin_provider.dart';
+import 'package:cryptoviewer/presentation/widgets/data_display.dart';
 import 'package:cryptoviewer/presentation/widgets/history_chart.dart';
+import 'package:cryptoviewer/presentation/widgets/icon_display.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter/scheduler.dart';
 
 class ChartPage extends StatefulWidget {
-  String assetId;
-  String name;
+  //String assetId;
+  //String name;
 
-  ChartPage({super.key, required this.assetId, required this.name});
+  ChartPage({super.key /*, required this.assetId, required this.name*/});
 
   @override
   State<ChartPage> createState() => _ChartPageState();
@@ -27,8 +30,12 @@ class _ChartPageState extends State<ChartPage> {
     historyLoading = true;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      String currentAssetId = Provider.of<CoinProvider>(context, listen: false)
+          .currentCoin!
+          .assetId;
+
       Provider.of<CoinProvider>(context, listen: false)
-          .getCoinListHistory(widget.assetId);
+          .getCoinListHistory(currentAssetId);
     });
 
     /*Provider.of<CoinProvider>(context, listen: false)
@@ -51,7 +58,8 @@ class _ChartPageState extends State<ChartPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.onPrimary,
-          title: Text("${widget.name} (${widget.assetId})"),
+          title: Text(
+              "${coinProvider.currentCoin?.name} (${coinProvider.currentCoin?.name})"),
         ),
         body: coinProvider.loadingCoinHistory
             ? Center(
@@ -61,15 +69,18 @@ class _ChartPageState extends State<ChartPage> {
                     child: const CircularProgressIndicator(strokeWidth: 15)))
             : (coinProvider.coinListRes?.error == null &&
                     coinProvider.coinListRes?.data != null)
-                ? Column(
-                    //mainAxisAlignment: MainAxisAlignment.center,
+                ? SingleChildScrollView(
+                    child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      IconDisplay(iconId: coinProvider.currentCoin!.idIcon),
+                      DataDisplay(coin: coinProvider.currentCoin!),
                       HistoryChart(
                         historyMonth: coinProvider.coinHistoryMonthRes?.data,
                       ),
                     ],
-                  )
+                  ))
 
                 /*Text("${widget.assetId} * ${coinProvider.loadingCoinHistory}",
                     style: Theme.of(context).textTheme.displayLarge)*/

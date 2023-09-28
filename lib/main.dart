@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch().copyWith(
               primary: Colors.amber[800],
-              onPrimary: Colors.cyan.shade50,
+              onPrimary: Colors.amber[200],
               secondary: Colors.amber[400],
               surface: const Color.fromARGB(255, 232, 227, 154),
               background: const Color.fromARGB(255, 24, 29, 32),
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
               displayLarge: TextStyle(color: Colors.amber[400]),
               displayMedium: TextStyle(color: Colors.amber[400]),
               headlineSmall: TextStyle(color: Colors.amber[400]),
-              displaySmall: TextStyle(color: Colors.amber[400]),
+              displaySmall: TextStyle(color: Colors.white),
               labelSmall: TextStyle(color: Colors.amber[400]),
               bodyLarge: TextStyle(color: Colors.amber[400])),
           fontFamily: "Poppins"),

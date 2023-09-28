@@ -14,6 +14,8 @@ class CoinProvider extends ChangeNotifier {
   DioError? currentError = null;
   DataState<List<CoinEntity>>? coinListRes;
 
+  CoinEntity? currentCoin;
+
   String coinFilter = "";
   List<CoinEntity> coinListFiltered = [];
 
@@ -59,13 +61,12 @@ class CoinProvider extends ChangeNotifier {
     notifyListeners();
 
     coinListRes = await coinRepository.getAllCoinsData();
-    /*
-    if (coinListRes?.error != null) {
-      currentError = coinListRes?.error;
-      print("error calling: ${coinListRes?.error}");
-    }*/
 
     loadingCoins = false;
     notifyListeners();
+  }
+
+  void SetCurrentCoin(CoinEntity coin) {
+    currentCoin = coin;
   }
 }

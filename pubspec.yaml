@@ -101,6 +101,7 @@ flutter:
     - .env
     - lib/core/sample_coins.json
     - lib/core/sample_history.json
+    - assets/images/crypto_icon.png
     
 
   #   - images/a_dot_burr.jpeg

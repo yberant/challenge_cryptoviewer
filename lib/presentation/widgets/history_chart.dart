@@ -24,17 +24,11 @@ List<List<ChartData>> getChartData(List<CoinHistoryEntity>? history) {
   }
 }
 
-class HistoryChart extends StatefulWidget {
-  //List<CoinHistoryEntity>? historyDay;
+class HistoryChart extends StatelessWidget {
   List<CoinHistoryEntity>? historyMonth;
 
   HistoryChart({super.key, required this.historyMonth});
 
-  @override
-  State<HistoryChart> createState() => _HistoryChartState();
-}
-
-class _HistoryChartState extends State<HistoryChart> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -44,7 +38,7 @@ class _HistoryChartState extends State<HistoryChart> {
     String highLabel = "high rate";
     String chartTitle = "month rates (USD)";
 
-    List<List<ChartData>> chartData = getChartData(widget.historyMonth);
+    List<List<ChartData>> chartData = getChartData(historyMonth);
 
     List<ChartData> openData = chartData[0];
     List<ChartData> closeData = chartData[1];
@@ -114,31 +108,3 @@ class _HistoryChartState extends State<HistoryChart> {
             ]));
   }
 }
-
-/*
-LineChart(LineChartData(
-          maxY: pointsOpen.map((h) => h.y).reduce(max) * 1.05,
-          minY: (pointsOpen.map((h) => h.y).reduce(min) * 0.9),
-          titlesData: getTitlesDataMonth(),
-          borderData: FlBorderData(show: true, border: Border.all(width: 0.5)),
-          lineBarsData: [
-            LineChartBarData(
-                spots: pointsOpen,
-                isCurved: true,
-                colors: [
-                  Theme.of(context).colorScheme.secondary,
-                  Theme.of(context).colorScheme.primary
-                ],
-                dotData: FlDotData(show: true)),
-          ])),
- */
-
-/*LineChart(
-        LineChartData(borderData: FlBorderData(show: false), lineBarsData: [
-      LineChartBarData(spots: [
-        FlSpot(0, 3),
-        FlSpot(2.6, 1),
-        FlSpot(4.9, 5),
-        FlSpot(6.8, 2.5)
-      ]),
-    ])) */

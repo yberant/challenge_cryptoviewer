@@ -57,10 +57,10 @@ class _CoinSelectorState extends State<CoinSelector> {
         ),
         onTap: () async {
           coinProvider.setLoadingCoinHistory(true);
-
+          coinProvider.SetCurrentCoin(widget.coin);
           //coinProvider.getCoinListHistory(widget.coin.assetId, "1HRS", 30);
-          GoRouter.of(context)
-              .push("/coin_history/${widget.coin.assetId}/${widget.coin.name}");
+          GoRouter.of(context).push("/coin_history");
+          //.push("/coin_history/${widget.coin.assetId}/${widget.coin.name}");
           /* coinProvider.getCoinListHistory(widget.coin.assetId, "1HRS", 30);
           print("history:");
           print(coinProvider.coinHistoryRes?.data); */
