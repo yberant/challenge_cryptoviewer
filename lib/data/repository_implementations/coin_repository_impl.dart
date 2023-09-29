@@ -7,11 +7,8 @@ import 'package:cryptoviewer/core/util/enums.dart';
 import 'package:cryptoviewer/data/data_sources/remote/coins_api_service.dart';
 import 'package:cryptoviewer/data/models/coin.dart';
 import 'package:cryptoviewer/data/models/coin_history.dart';
-import 'package:cryptoviewer/domain/entities/coin_history.dart';
-//import 'package:cryptoviewer/domain/entities/coin.dart';
 import 'package:cryptoviewer/domain/repository_interfaces/coin_repository.dart';
 import 'package:dio/dio.dart';
-//import 'package:http/http.dart' as http;
 
 class CoinRepositoryImpl implements CoinRepository {
   final CoinsApiService _coinsApiService;

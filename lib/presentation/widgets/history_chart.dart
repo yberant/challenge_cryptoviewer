@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:cryptoviewer/domain/entities/coin_history.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-//import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ChartData {
@@ -17,9 +16,9 @@ List<List<ChartData>> getChartData(List<CoinHistoryEntity>? history) {
     return [[], [], []];
   } else {
     return [
-      history.map((h) => ChartData(h.timeStart, h.rateOpen)).toList(),
-      history.map((h) => ChartData(h.timeStart, h.rateClose)).toList(),
-      history.map((h) => ChartData(h.timeStart, h.rateHigh)).toList(),
+      history.map((h) => ChartData(h.timeStart!, h.rateOpen!)).toList(),
+      history.map((h) => ChartData(h.timeStart!, h.rateClose!)).toList(),
+      history.map((h) => ChartData(h.timeStart!, h.rateHigh!)).toList(),
     ];
   }
 }
@@ -31,6 +30,10 @@ class HistoryChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (this.historyMonth?.length == 0) {
+      return const SizedBox.shrink();
+    }
+
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     String openLabel = "open rate";
@@ -47,8 +50,7 @@ class HistoryChart extends StatelessWidget {
     return Container(
         padding: const EdgeInsets.all(15),
         margin: const EdgeInsets.all(15),
-        //alignment: Alignment.center,
-        height: screenHeight * 0.7,
+        height: screenHeight * 0.6,
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.tertiary,
             borderRadius: const BorderRadius.all(Radius.circular(20))),
@@ -68,6 +70,18 @@ class HistoryChart extends StatelessWidget {
                 isVisible: true,
                 textStyle: TextStyle(color: Colors.white, fontSize: 10)),
             primaryYAxis: NumericAxis(
+                maximum: [
+                      openData.map((d) => d.rate).toList().reduce(max),
+                      closeData.map((d) => d.rate).toList().reduce(max),
+                      highData.map((d) => d.rate).toList().reduce(max)
+                    ].reduce(max) *
+                    1.05,
+                minimum: [
+                      openData.map((d) => d.rate).toList().reduce(min),
+                      closeData.map((d) => d.rate).toList().reduce(min),
+                      highData.map((d) => d.rate).toList().reduce(min)
+                    ].reduce(min) *
+                    0.9,
                 numberFormat: NumberFormat.simpleCurrency(
                   decimalDigits: 3,
                 ),

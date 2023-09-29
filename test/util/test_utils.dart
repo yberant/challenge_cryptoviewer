@@ -30,7 +30,10 @@ CoinEntity testCoinEntity = CoinEntity(
     assetId: testAssetId,
     typeIsCrypto: false,
     idIcon: 'idicon',
-    priceUsd: 1);
+    priceUsd: 1,
+    firstQuoteDate: DateTime.parse("2013-08-29T03:00:00.0000000Z"),
+    firstTradeDate: DateTime.parse("2013-08-29T03:00:00.0000000Z"),
+    numberOfTrades: 5436);
 
 List<CoinEntity> testCoinEntityList = [testCoinEntity];
 String testPeriodId = "1HRS";

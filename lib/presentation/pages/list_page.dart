@@ -1,6 +1,7 @@
 import 'package:cryptoviewer/presentation/providers/coin_provider.dart';
 import 'package:cryptoviewer/presentation/widgets/coin_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class ListPage extends StatefulWidget {
@@ -39,8 +40,20 @@ class _ListPageState extends State<ListPage> {
 
       return Scaffold(
           appBar: AppBar(
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              title: const Text("Welcome to CryptoViewer")),
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+            title: const Text(
+              "Welcome to CryptoViewer",
+              style: TextStyle(fontSize: 18),
+            ),
+            actions: [
+              if (!coinProvider.loadingCoins)
+                IconButton(
+                    onPressed: () {
+                      GoRouter.of(context).push("/search");
+                    },
+                    icon: const Icon(Icons.search))
+            ],
+          ),
           body: coinProvider.loadingCoins
               ? Center(
                   child: SizedBox(

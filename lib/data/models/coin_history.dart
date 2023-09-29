@@ -13,9 +13,9 @@ class CoinHistoryModel extends CoinHistoryEntity {
       Map<String, dynamic> history, String assetId) {
     return CoinHistoryModel(
         timeStart: DateTime.parse(history["time_period_start"]),
-        rateOpen: history["rate_open"],
-        rateHigh: history["rate_high"],
-        rateClose: history["rate_close"],
+        rateOpen: double.parse(history["rate_open"].toString()),
+        rateHigh: double.parse(history["rate_high"].toString()),
+        rateClose: double.parse(history["rate_close"].toString()),
         assetId: assetId);
   }
 }

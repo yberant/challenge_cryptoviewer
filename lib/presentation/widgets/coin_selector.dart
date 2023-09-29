@@ -23,7 +23,7 @@ class _CoinSelectorState extends State<CoinSelector> {
     return Consumer<CoinProvider>(builder: (context, coinProvider, child) {
       return GestureDetector(
         child: Container(
-          width: screenWidth * 0.95,
+          width: screenWidth,
           decoration: BoxDecoration(
               color: Colors.black,
 
@@ -33,7 +33,8 @@ class _CoinSelectorState extends State<CoinSelector> {
               borderRadius: const BorderRadius.all(Radius.circular(20))),
           padding: EdgeInsets.symmetric(
               vertical: screenWidth * 0.01, horizontal: screenWidth * 0.01),
-          margin: EdgeInsets.symmetric(vertical: screenHeight * 0.005),
+          margin: EdgeInsets.symmetric(
+              vertical: screenHeight * 0.005, horizontal: screenWidth * 0.02),
           child: Container(
               //height: screenHeight * 0.1,
               padding: EdgeInsets.symmetric(
@@ -58,8 +59,8 @@ class _CoinSelectorState extends State<CoinSelector> {
         onTap: () async {
           coinProvider.setLoadingCoinHistory(true);
           coinProvider.SetCurrentCoin(widget.coin);
-          //coinProvider.getCoinListHistory(widget.coin.assetId, "1HRS", 30);
-          GoRouter.of(context).push("/coin_history");
+          coinProvider.getCoinListHistory(widget.coin.assetId);
+          GoRouter.of(context).push("/coin_details");
           //.push("/coin_history/${widget.coin.assetId}/${widget.coin.name}");
           /* coinProvider.getCoinListHistory(widget.coin.assetId, "1HRS", 30);
           print("history:");

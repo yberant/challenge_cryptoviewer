@@ -32,9 +32,6 @@ class CoinRepositoryOfflineImpl implements CoinRepository {
           (json.decode(await rootBundle.loadString(jsonPath)) as List);
       List<CoinModel> coinData = res.map((i) => CoinModel.fromJson(i)).toList();
 
-      //var intValue = Random().nextInt(10);
-      //if (intValue <= 2) throw ("errorrrrrr"); //simulacion de error aleatorio
-      //print(coinData);
       return DataSuccess(coinData);
     } catch (e) {
       return DataFailed(DioError(

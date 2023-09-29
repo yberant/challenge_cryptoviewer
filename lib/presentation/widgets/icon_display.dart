@@ -7,14 +7,10 @@ class IconDisplay extends StatelessWidget {
 
   IconDisplay({super.key, required this.iconId});
 
-  String IconUrl() {
-    return values.coinIconPath(iconId);
-  }
+  String IconUrl() => values.coinIconPath(iconId);
 
   @override
   Widget build(BuildContext context) {
-    print(iconId);
-
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 

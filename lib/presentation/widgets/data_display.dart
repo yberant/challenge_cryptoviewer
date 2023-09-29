@@ -1,9 +1,10 @@
 import 'package:cryptoviewer/domain/entities/coin.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DataDisplay extends StatelessWidget {
   CoinEntity coin;
-  TextStyle dataTextStyle = TextStyle(color: Colors.white, fontSize: 22);
+  TextStyle dataTextStyle = const TextStyle(color: Colors.white, fontSize: 17);
 
   DataDisplay({super.key, required this.coin});
 
@@ -13,10 +14,8 @@ class DataDisplay extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      padding: const EdgeInsets.all(25),
+      padding: const EdgeInsets.all(20),
       margin: const EdgeInsets.all(15),
-      //alignment: Alignment.center,
-      //height: screenHeight * 0.7,
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.tertiary,
           borderRadius: const BorderRadius.all(Radius.circular(20))),
@@ -28,12 +27,38 @@ class DataDisplay extends StatelessWidget {
             "Name: ${coin.name}",
             style: dataTextStyle,
           ),
+          SizedBox(height: screenHeight * 0.003),
+          /* Text(
+            "Id: ${coin.assetId}",
+            style: dataTextStyle,
+          ), */
+          coin.firstQuoteDate != null
+              ? Text(
+                  "First Quote Date: ${DateFormat('yMMMd').format(coin.firstQuoteDate!)}",
+                  style: dataTextStyle,
+                )
+              : const SizedBox.shrink(),
+          SizedBox(height: screenHeight * 0.003),
+          coin.firstTradeDate != null
+              ? Text(
+                  "First Trade Date: ${DateFormat('yMMMd').format(coin.firstTradeDate!)}",
+                  style: dataTextStyle,
+                )
+              : const SizedBox.shrink(),
+          SizedBox(height: screenHeight * 0.003),
           coin.priceUsd >= 0
               ? Text(
                   "Price (USD): \$${coin.priceUsd.toStringAsFixed(3)}",
                   style: dataTextStyle,
                 )
-              : SizedBox.shrink()
+              : const SizedBox.shrink(),
+          SizedBox(height: screenHeight * 0.003),
+          coin.numberOfTrades != null
+              ? Text(
+                  "Trades count: ${coin.numberOfTrades}",
+                  style: dataTextStyle,
+                )
+              : const SizedBox.shrink()
         ],
       ),
     );

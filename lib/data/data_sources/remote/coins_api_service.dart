@@ -58,10 +58,6 @@ class CoinsApiService {
     DateTime timeEnd = DateTime.now();
     DateTime timeStart = timeEnd.subtract(Duration(days: periodDays));
 
-    //print("url for getCoinsHistory: $url");
-    //print("time start: ${dateFormat.dateFormat(timeEnd)}");
-    //print("time end: ${dateFormat.dateFormat(timeStart)}");
-
     final response = await dio.get(url, queryParameters: {
       "period_id": periodId,
       "time_end": dateFormat.dateFormat(timeEnd),

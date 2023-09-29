@@ -14,30 +14,27 @@ class CoinProvider extends ChangeNotifier {
   DioError? currentError = null;
   DataState<List<CoinEntity>>? coinListRes;
 
+  List<CoinEntity> filteredCoins = [];
+
   CoinEntity? currentCoin;
 
-  String coinFilter = "";
-  List<CoinEntity> coinListFiltered = [];
+  String coinSearchQuery = "";
 
-  DataState<List<CoinHistoryEntity>>? coinHistoryMonthRes;
-  DataState<List<CoinHistoryEntity>>? coinHistoryDayRes;
+  DataState<List<CoinHistoryEntity>>? coinHistoryRes;
 
-  //Future<DataState<List<CoinEntity>>>? coinList;
   bool loadingCoins = true;
 
   bool loadingCoinHistory = false;
 
   CoinProvider({required this.coinRepository});
 
+  String processString(String str) => str.toLowerCase().trim();
+
   Future<void> getCoinListHistory(String assetId) async {
     loadingCoinHistory = true;
     notifyListeners();
-    coinHistoryMonthRes =
+    coinHistoryRes =
         await coinRepository.getCoinHistory(assetId, HistoryMode.month);
-
-    //print("coin history month: ${coinHistoryMonthRes?.data?.length}");
-    //coinHistoryDayRes =
-    //    await coinRepository.getCoinHistory(assetId, HistoryMode.day);
     loadingCoinHistory = false;
     notifyListeners();
   }
@@ -66,7 +63,13 @@ class CoinProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setCoinSearchQuery(String query) {
+    coinSearchQuery = query;
+    notifyListeners();
+  }
+
   void SetCurrentCoin(CoinEntity coin) {
     currentCoin = coin;
+    notifyListeners();
   }
 }
