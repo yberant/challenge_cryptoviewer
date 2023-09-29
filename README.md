@@ -1,16 +1,18 @@
 # cryptoviewer
 
-A new Flutter project.
+Este proyecto es parte de una prueba técnica para optar al puesto de desarrollador movil para la empresa finmarkets. Se trata de una aplicación hecha en flutter para desplegar información de criptomonedas.
 
-## Getting Started
+## Consideraciones
 
-This project is a starting point for a Flutter application.
+* Esta aplicación utiliza la API coinAPI. Para lograr la comunicación efectivamente es necesario incluír una API key. La API key utilizada durante el desarrollo no está presente en el repositorio por razones de seguridad pues el archivo que contenía a esta se incluyó en el archivo .gitignore. Para hacer correcto uso de la aplicación es necesario realizar los siguientes pasos:
 
-A few resources to get you started if this is your first Flutter project:
+1. Conseguir una API key de coinAPI. Es posible conseguir una gratis desde el siguiente enlace: https://docs.coinapi.io/. Simplemente hay que hacer click en la opción "GET A FREE API KEY" en la parte superior de la pantalla.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+2. Crear en el directorio raíz de este proyecto un archivo llamado ".env"
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. En el archivo colocar la API key, escribiendo:
+ X_CoinAPI_key=<TU_API_KEY>
+
+ * Para mejorar el desempeño de la aplicación en cuanto a tiempos de carga, esta aplicación solo entrega información de 1000 de las más de 18000 criptomonedas disponibles desde la API.
+
+ * Para cada criptomoneda se puede desplegar información de acuerdo a precios históricos de un mes, entre otros detalles. 
